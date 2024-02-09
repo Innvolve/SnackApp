@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackApp", "SnackApp\SnackApp.csproj", "{0631637A-29A0-47CB-A539-D3F4E5430623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackApp.Logic", "SnackApp.Logic\SnackApp.Logic.csproj", "{80504D81-367C-454C-BEB7-7C0DD9EAD5F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackApp.Models", "SnackApp.Models\SnackApp.Models.csproj", "{DDA2EAC2-B503-46DC-890C-654E3EFB26F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0631637A-29A0-47CB-A539-D3F4E5430623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0631637A-29A0-47CB-A539-D3F4E5430623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0631637A-29A0-47CB-A539-D3F4E5430623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0631637A-29A0-47CB-A539-D3F4E5430623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80504D81-367C-454C-BEB7-7C0DD9EAD5F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80504D81-367C-454C-BEB7-7C0DD9EAD5F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80504D81-367C-454C-BEB7-7C0DD9EAD5F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80504D81-367C-454C-BEB7-7C0DD9EAD5F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDA2EAC2-B503-46DC-890C-654E3EFB26F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA2EAC2-B503-46DC-890C-654E3EFB26F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA2EAC2-B503-46DC-890C-654E3EFB26F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA2EAC2-B503-46DC-890C-654E3EFB26F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
