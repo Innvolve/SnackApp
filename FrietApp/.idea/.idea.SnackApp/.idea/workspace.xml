@@ -9,10 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8463197f-396e-4ca9-9ac0-9b27aaa7fcf9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Additives.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Options.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Sizes.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnackApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnackApp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SnackApp.Models/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp.Models/Item.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SnackApp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SnackApp/SnackApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp/SnackApp.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +25,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/ecb34f85ec92e1b3c814edf7da83337e199e7f66/src/libraries/System.Private.CoreLib/src/System/Collections/Generic/List.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/ecb34f85ec92e1b3c814edf7da83337e199e7f66/src/libraries/System.Private.CoreLib/src/System/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0a639adc663f45108f057c429262c62016200/23/ed60b6a2/ScrapingBrowser.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0a639adc663f45108f057c429262c62016200/9d/09ce0b67/CssQueryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -43,7 +46,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.FrietApp.executor": "Run",
+    ".NET Project.FrietApp.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -143,7 +146,7 @@
       <updated>1707473328875</updated>
       <workItem from="1707473329943" duration="5506000" />
       <workItem from="1707741490750" duration="9651000" />
-      <workItem from="1707809981729" duration="4642000" />
+      <workItem from="1707809981729" duration="16387000" />
     </task>
     <servers />
   </component>
@@ -159,31 +162,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/SnackApp/Program.cs</url>
-          <line>13</line>
-          <properties documentPath="C:\repositories\FrietApp\FrietApp\SnackApp\Program.cs" initialLine="11" containingFunctionPresentation="">
+          <line>32</line>
+          <properties documentPath="C:\repositories\FrietApp\FrietApp\SnackApp\Program.cs" initialLine="32" containingFunctionPresentation="">
             <startOffsets>
-              <option value="390" />
+              <option value="1047" />
             </startOffsets>
             <endOffsets>
-              <option value="442" />
+              <option value="1080" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/SnackApp/Program.cs</url>
-          <line>24</line>
-          <properties documentPath="C:\repositories\FrietApp\FrietApp\SnackApp\Program.cs" initialLine="24" containingFunctionPresentation="">
-            <startOffsets>
-              <option value="683" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1345" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Frame#Program.&lt;Main&gt;$" memberName="optionLegendNodes" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

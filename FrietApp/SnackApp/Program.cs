@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Data;
+using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
@@ -19,17 +20,39 @@ foreach (var link in productLinks)
     var productlink = $"{baseDomain}{link}";
     var html = GetHtml(productlink);
     var node = html.OwnerDocument.DocumentNode;
+    
+    
+    //Construct options Dictionaries
+    var totalOptions = new List<Dictionary<string, List<string>>>();
+    
+    var optionGroupNodes = node.QuerySelectorAll("legend");
+    foreach (var optionGroupNode in optionGroupNodes)
+    {
+        var optionsDict = new Dictionary<string, List<string>>();
+        var optionNodes = optionGroupNode.QuerySelectorAll("label.form-check-label"); //TODO css selector doesnt work?
+        var options = new List<string>();
+        foreach (var optionNode in optionNodes)   
+        {
+            options.Add(optionNode.InnerText);
+        }
+        optionsDict.Add(optionGroupNode.InnerText,options);
+        totalOptions.Add(optionsDict);
+    }
+    
+    
+    
     var items = new List<Item>();
+    
     try
     {
         items.Add(new Item
         {
             Name = node.QuerySelector("h1").InnerText,
-            Description = node.QuerySelector("div.product-section.product-intro > p").InnerText ?? "N/A",
+            Description = node.QuerySelector("div.product-section.product-intro > p")?.InnerText ?? "N/A",
             ImgUrl = node.QuerySelector("img").ChildAttributes("src").FirstOrDefault()?.Value ?? "N/A",
-            Price = 0, //node.SelectSingleNode("//*[@id=\"product-form\"]/fieldset/div/div[1]").InnerText,
-            // Options = node.QuerySelector("").InnerText,
-            // Additives = node.QuerySelector("").InnerText,
+            Price = Convert.ToDouble(node.QuerySelector(".product-price").InnerText.Split(' ')[1]),
+            Options =  totalOptions,
+            // Associations  = node.QuerySelector("").InnerText,
             // Size = node.QuerySelector("").InnerText,
             // Availability = true //node.SelectSingleNode("").InnerText;
         });
@@ -39,15 +62,27 @@ foreach (var link in productLinks)
         Console.WriteLine(e);
         throw;
     }
+
     
     foreach (var item in items)
     {
         Console.WriteLine(item.Name);
         Console.WriteLine(item.Description);
         Console.WriteLine(item.ImgUrl);
-        
+        Console.WriteLine(item.Price);
+        foreach (var options in item.Options)
+        {
+            foreach (var pair in options)
+            {
+                Console.WriteLine(pair.Key);
+                var values = pair.Value;
+                foreach (var value in values)
+                {
+                    Console.WriteLine(pair.Value);
+                }
+            }
+        }
     }
-
 }
 
 //Methods
@@ -95,7 +130,7 @@ List<string> GetProductLinks(List<string> collectionUrls)
 }
 
 HtmlNode GetHtml(string url)
-    {
-        var webPage = scrapingBrowser.NavigateToPage(new Uri(url));
-        return webPage.Html;
-    }
+{
+    var webPage = scrapingBrowser.NavigateToPage(new Uri(url));
+    return webPage.Html;
+}
