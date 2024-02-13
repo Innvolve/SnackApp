@@ -17,7 +17,12 @@
 
     <ItemGroup>
       <PackageReference Include="HtmlAgilityPack" Version="1.11.58" />
+      <PackageReference Include="HtmlAgilityPack.CssSelectors.NetCore" Version="1.2.1" />
       <PackageReference Include="ScrapySharp" Version="3.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SnackApp.Models\SnackApp.Models.csproj" />
     </ItemGroup>
 
 </Project>
