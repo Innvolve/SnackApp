@@ -1,6 +1,6 @@
 namespace SnackApp.Models.ItemProperties;
 
-public class Additives
+public record ItemDimension
 {
     
 }

@@ -25,7 +25,7 @@ foreach (var link in productLinks)
     //Construct options Dictionaries
     var totalOptions = new List<Dictionary<string, List<string>>>();
     
-    var optionGroupNodes = node.QuerySelectorAll("legend");
+    var optionGroupNodes = node.QuerySelectorAll(".product-option-group");
     foreach (var optionGroupNode in optionGroupNodes)
     {
         var optionsDict = new Dictionary<string, List<string>>();

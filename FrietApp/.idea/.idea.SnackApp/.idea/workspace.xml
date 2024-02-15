@@ -9,11 +9,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8463197f-396e-4ca9-9ac0-9b27aaa7fcf9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Additives.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Options.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Sizes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/Currency.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/Item/Item.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/Item/ItemProperties/ItemAssociation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SnackApp.Models/Item/ItemProperties/ItemOption.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnackApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnackApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SnackApp.Models/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp.Models/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnackApp.Models/Item.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Additives.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp.Models/Item/ItemProperties/ItemDimension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Options.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnackApp.Models/ItemProperties/Sizes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnackApp.Models/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp.Models/Order/Order.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnackApp.Models/SnackApp.Models.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp.Models/SnackApp.Models.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SnackApp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SnackApp/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,29 +50,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.FrietApp.executor": "Debug",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.FrietApp.executor&quot;: &quot;Debug&quot;,
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\MichaelAanraad\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\MichaelAanraad\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\MichaelAanraad\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\MichaelAanraad\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\MichaelAanraad\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\MichaelAanraad\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Project.FrietApp">
     <configuration name="FrietApp" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -147,6 +153,7 @@
       <workItem from="1707473329943" duration="5506000" />
       <workItem from="1707741490750" duration="9651000" />
       <workItem from="1707809981729" duration="16387000" />
+      <workItem from="1707898873200" duration="10972000" />
     </task>
     <servers />
   </component>
@@ -162,13 +169,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/SnackApp/Program.cs</url>
-          <line>32</line>
+          <line>31</line>
           <properties documentPath="C:\repositories\FrietApp\FrietApp\SnackApp\Program.cs" initialLine="32" containingFunctionPresentation="">
             <startOffsets>
-              <option value="1047" />
+              <option value="1062" />
             </startOffsets>
             <endOffsets>
-              <option value="1080" />
+              <option value="1095" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="10" />
