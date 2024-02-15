@@ -24,7 +24,7 @@ public class Item
     public string ImgUrl { get; init; }
     
     [JsonProperty("options")]
-    public List<Dictionary<string,List<string>>> Options { get; init; }
+    public Dictionary<string,List<string>> Options { get; init; }
     
     [JsonProperty("associations")]
     public List<ItemAssociation>? Associations { get; init; }
@@ -35,5 +35,5 @@ public class Item
     [JsonProperty("availability")]
     public bool Availability { get; set; }
     
-    public void GetItemOptions(Htmlnode)
+   
 }

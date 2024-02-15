@@ -1,98 +1,87 @@
-﻿using System.Data;
+﻿using System.Collections;
+using System.Data;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using SnackApp.Models;
 
-
-//source: https://zenscrape.com/web-scraping-csharp/
-var scrapingBrowser = new ScrapingBrowser();
 const string baseDomain = "https://cafetariabienvenue.12waiter.eu";
+var scrapingBrowser = new ScrapingBrowser();
 
 //Get product links
 var collectionLinks = GetCollectionLinks(baseDomain);
 var productLinks = GetProductLinks(collectionLinks);
 
 // Collect Items
-foreach (var link in productLinks)
-{
-    var productUrl = $"{baseDomain}{link}";
-    var html = GetHtml(productUrl);
-    var node = html.OwnerDocument.DocumentNode;
-    
-    
-    //Collect OptionGroups
-    var totalOptions = new List<Dictionary<string, List<string>>>();
-    
-    var optionGroupNodes = node.QuerySelectorAll(".product-option-group");
-    foreach (var optionGroupNode in optionGroupNodes)
-    {
-        //Collection Options
-        
-        var optionsDict = new Dictionary<string, List<string>>();
-        var optionNodes = optionGroupNode.QuerySelectorAll(".product-option.form-check"); 
-        var options = new List<string>();
-        
-        foreach (var optionNode in optionNodes)   
-        {
-            options.Add(optionNode.InnerText.Trim().Split('\n')[0]);
-        }
-        optionsDict.Add(optionGroupNode.InnerText.Trim().Split('\n')[0],options);
-        totalOptions.Add(optionsDict);
-    }
-    
-    
-    
-    
-    // Construct items
-    var items = new List<Item>();
-    try
-    {
-        items.Add(new Item
-        {
-            Name = node.QuerySelector("h1").InnerText,
-            Description = node.QuerySelector("div.product-section.product-intro > p")?.InnerText ?? "N/A",
-            ImgUrl = node.QuerySelector("img").ChildAttributes("src").FirstOrDefault()?.Value ?? "N/A",
-            Price = Convert.ToDouble(node.QuerySelector(".product-price").InnerText.Split(' ')[1]),
-            Options =  totalOptions,
-            // Associations  = node.QuerySelector("").InnerText,
-            // Size = node.QuerySelector("").InnerText,
-            // Availability = true //node.SelectSingleNode("").InnerText;
-        });
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-        throw;
-    }
+var items = CollectItems(productLinks);
 
-    
-    foreach (var item in items)
+foreach (var item in items)
+{
+    Console.WriteLine(item.Name);
+    Console.WriteLine(item.Description);
+    Console.WriteLine(item.ImgUrl);
+    Console.WriteLine(item.Price);
+    foreach (var pair in item.Options)
     {
-        Console.WriteLine(item.Name);
-        Console.WriteLine(item.Description);
-        Console.WriteLine(item.ImgUrl);
-        Console.WriteLine(item.Price);
-        foreach (var options in item.Options)
+        Console.WriteLine($"Option Group: {pair.Key}");
+        var values = pair.Value;
+        foreach (var value in values)
         {
-            foreach (var pair in options)
-            {
-                Console.WriteLine($"Option Group: {pair.Key}");
-                var values = pair.Value;
-                foreach (var value in values)
-                {
-                    Console.WriteLine($"Option: {value}");
-                }
-            }
+            Console.WriteLine($"Option: {value}");
         }
     }
 }
 
 return;
 
-
 //Methods
+List<Item> CollectItems(List<string> productLinks)
+{
+    var items = new List<Item>();
+    foreach (var link in productLinks)
+    {
+        var productUrl = $"{baseDomain}{link}";
+        var html = GetHtml(productUrl);
+        var documentNode = html.OwnerDocument.DocumentNode;
+
+        // Construct items
+        items.Add(ConstructItem(documentNode));
+    }
+    return items;
+}
+
+Dictionary<string, List<string>> CollectTotalOptions(HtmlNode documentNode)
+{
+    var totalOptions = new Dictionary<string, List<string>>();
+
+    var optionGroupNodes = documentNode.QuerySelectorAll(".product-option-group");
+    foreach (var optionGroupNode in optionGroupNodes)
+    {
+        var optionsDict = CollectOptions(optionGroupNode);
+        totalOptions.Add(optionsDict.Key, optionsDict.Value);
+    }
+            
+    return totalOptions;
+}
+
+
+KeyValuePair<string,List<string>> CollectOptions(HtmlNode optionGroupNode)
+{
+    
+    var optionNodes = optionGroupNode.QuerySelectorAll(".product-option.form-check"); 
+    
+    var options = new List<string>();
+    foreach (var optionNode in optionNodes)   
+    {
+        options.Add(optionNode.InnerText.Trim().Split('\n')[0]);
+    }
+
+    var key = optionGroupNode.InnerText.Trim().Split('\n')[0];
+    var optionsDict = new KeyValuePair<string, List<string>>(key, options);
+    return optionsDict;
+}
+
 List<string> GetCollectionLinks(string url)
 {
     var pageCollectionLinks = new List<string>();
@@ -134,6 +123,21 @@ List<string> GetProductLinks(List<string> collectionUrls)
         }
     }
     return productLinks;
+}
+
+Item ConstructItem(HtmlNode documentNode)
+{
+    return new Item
+    {
+        Name = documentNode.QuerySelector("h1").InnerText,
+        Description = documentNode.QuerySelector("div.product-section.product-intro > p")?.InnerText ?? "N/A",
+        ImgUrl = documentNode.QuerySelector("img").ChildAttributes("src").FirstOrDefault()?.Value ?? "N/A",
+        Price = Convert.ToDouble(documentNode.QuerySelector(".product-price").InnerText.Split(' ')[1]),
+        Options = CollectTotalOptions(documentNode),
+        // Associations  = node.QuerySelector("").InnerText,
+        // Size = node.QuerySelector("").InnerText,
+        // Availability = true //node.SelectSingleNode("").InnerText;
+    };
 }
 
 HtmlNode GetHtml(string url)
