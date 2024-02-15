@@ -3,7 +3,7 @@ using SnackApp.Models.ItemProperties;
 
 namespace SnackApp.Models;
 
-public struct Item
+public class Item
 {
     [JsonProperty("slug")]
     public string Slug { get; init; }
@@ -15,7 +15,7 @@ public struct Item
     public string Name { get; init; }
     
     [JsonProperty("price")]
-    public Currency Price { get; init; }
+    public double Price { get; init; }
     
     //Todo added jsonproperties
     public string? Description { get; init; }
@@ -24,7 +24,7 @@ public struct Item
     public string ImgUrl { get; init; }
     
     [JsonProperty("options")]
-    public List<ItemOption> Options { get; init; }
+    public List<Dictionary<string,List<string>>> Options { get; init; }
     
     [JsonProperty("associations")]
     public List<ItemAssociation>? Associations { get; init; }
@@ -34,4 +34,6 @@ public struct Item
     
     [JsonProperty("availability")]
     public bool Availability { get; set; }
+    
+    public void GetItemOptions(Htmlnode)
 }

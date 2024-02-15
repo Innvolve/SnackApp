@@ -14,35 +14,39 @@ const string baseDomain = "https://cafetariabienvenue.12waiter.eu";
 var collectionLinks = GetCollectionLinks(baseDomain);
 var productLinks = GetProductLinks(collectionLinks);
 
-// Create Items
+// Collect Items
 foreach (var link in productLinks)
 {
-    var productlink = $"{baseDomain}{link}";
-    var html = GetHtml(productlink);
+    var productUrl = $"{baseDomain}{link}";
+    var html = GetHtml(productUrl);
     var node = html.OwnerDocument.DocumentNode;
     
     
-    //Construct options Dictionaries
+    //Collect OptionGroups
     var totalOptions = new List<Dictionary<string, List<string>>>();
     
     var optionGroupNodes = node.QuerySelectorAll(".product-option-group");
     foreach (var optionGroupNode in optionGroupNodes)
     {
+        //Collection Options
+        
         var optionsDict = new Dictionary<string, List<string>>();
-        var optionNodes = optionGroupNode.QuerySelectorAll("label.form-check-label"); //TODO css selector doesnt work?
+        var optionNodes = optionGroupNode.QuerySelectorAll(".product-option.form-check"); 
         var options = new List<string>();
+        
         foreach (var optionNode in optionNodes)   
         {
-            options.Add(optionNode.InnerText);
+            options.Add(optionNode.InnerText.Trim().Split('\n')[0]);
         }
-        optionsDict.Add(optionGroupNode.InnerText,options);
+        optionsDict.Add(optionGroupNode.InnerText.Trim().Split('\n')[0],options);
         totalOptions.Add(optionsDict);
     }
     
     
     
-    var items = new List<Item>();
     
+    // Construct items
+    var items = new List<Item>();
     try
     {
         items.Add(new Item
@@ -74,16 +78,19 @@ foreach (var link in productLinks)
         {
             foreach (var pair in options)
             {
-                Console.WriteLine(pair.Key);
+                Console.WriteLine($"Option Group: {pair.Key}");
                 var values = pair.Value;
                 foreach (var value in values)
                 {
-                    Console.WriteLine(pair.Value);
+                    Console.WriteLine($"Option: {value}");
                 }
             }
         }
     }
 }
+
+return;
+
 
 //Methods
 List<string> GetCollectionLinks(string url)
