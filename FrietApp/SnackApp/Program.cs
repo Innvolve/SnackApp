@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Data;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using SnackApp.Models;
+using SnackApp.Models.ItemProperties;
 
 const string baseDomain = "https://cafetariabienvenue.12waiter.eu";
 var scrapingBrowser = new ScrapingBrowser();
@@ -16,20 +15,18 @@ var productLinks = GetProductLinks(collectionLinks);
 // Collect Items
 var items = CollectItems(productLinks);
 
+//Test
 foreach (var item in items)
 {
     Console.WriteLine(item.Name);
     Console.WriteLine(item.Description);
     Console.WriteLine(item.ImgUrl);
     Console.WriteLine(item.Price);
-    foreach (var pair in item.Options)
+    foreach (var option in item.Options)
     {
-        Console.WriteLine($"Option Group: {pair.Key}");
-        var values = pair.Value;
-        foreach (var value in values)
-        {
-            Console.WriteLine($"Option: {value}");
-        }
+        Console.WriteLine($"Option Group: {option.GroupId}");
+        Console.WriteLine($"Option ID: {option.Id}");
+        Console.WriteLine($"Option: {option.Name}");
     }
 }
 
@@ -44,50 +41,57 @@ List<Item> CollectItems(List<string> productLinks)
         var productUrl = $"{baseDomain}{link}";
         var html = GetHtml(productUrl);
         var documentNode = html.OwnerDocument.DocumentNode;
-
-        // Construct items
+      
         items.Add(ConstructItem(documentNode));
     }
     return items;
 }
 
-Dictionary<string, List<string>> CollectTotalOptions(HtmlNode documentNode)
+List<ItemOption> CollectTotalOptions(HtmlNode documentNode)
 {
-    var totalOptions = new Dictionary<string, List<string>>();
+    var totalOptions = new List<ItemOption>();
 
     var optionGroupNodes = documentNode.QuerySelectorAll(".product-option-group");
     foreach (var optionGroupNode in optionGroupNodes)
     {
-        var optionsDict = CollectOptions(optionGroupNode);
-        totalOptions.Add(optionsDict.Key, optionsDict.Value);
+        var options = CollectOptions(optionGroupNode);
+        totalOptions.AddRange(options);
     }
             
     return totalOptions;
 }
 
 
-KeyValuePair<string,List<string>> CollectOptions(HtmlNode optionGroupNode)
+List<ItemOption> CollectOptions(HtmlNode optionGroupNode)
 {
-    
     var optionNodes = optionGroupNode.QuerySelectorAll(".product-option.form-check"); 
     
-    var options = new List<string>();
-    foreach (var optionNode in optionNodes)   
+    var options = new List<ItemOption>();
+    foreach (var optionNode in optionNodes)
     {
-        options.Add(optionNode.InnerText.Trim().Split('\n')[0]);
+        var values = optionGroupNode.ChildAttributes("value").ToString();
+        options.Add(new ItemOption
+        {
+            Id = optionNode.GetAttributeValue("value"),
+            Name = optionNode.InnerText.Trim().Split('\n')[0],
+            // Price = ,
+            GroupId = values,
+            // IsOptional = ,
+            // IsMutuallyExclusive = ,
+        });
     }
 
     var key = optionGroupNode.InnerText.Trim().Split('\n')[0];
-    var optionsDict = new KeyValuePair<string, List<string>>(key, options);
-    return optionsDict;
+    
+    return options;
 }
 
 List<string> GetCollectionLinks(string url)
 {
-    var pageCollectionLinks = new List<string>();
     var html = GetHtml(url);
     var links = html.CssSelect("a.collection-item[href^='/c/']");
-
+    
+    var pageCollectionLinks = new List<string>();
     foreach (var link in links)
     {
         pageCollectionLinks.Add(link.Attributes["href"].Value);

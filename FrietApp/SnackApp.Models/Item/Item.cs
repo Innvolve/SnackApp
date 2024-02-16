@@ -24,7 +24,7 @@ public class Item
     public string ImgUrl { get; init; }
     
     [JsonProperty("options")]
-    public Dictionary<string,List<string>> Options { get; init; }
+    public List<ItemOption> Options { get; init; }
     
     [JsonProperty("associations")]
     public List<ItemAssociation>? Associations { get; init; }
