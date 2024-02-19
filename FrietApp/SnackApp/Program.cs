@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Runtime.InteropServices.ComTypes;
+using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
@@ -42,7 +43,7 @@ List<Item> CollectItems(List<string> productLinks)
         var html = GetHtml(productUrl);
         var documentNode = html.OwnerDocument.DocumentNode;
       
-        items.Add(ConstructItem(documentNode));
+        items.Add(CollectTotalOptions(documentNode));
     }
     return items;
 }
@@ -52,9 +53,19 @@ List<ItemOption> CollectTotalOptions(HtmlNode documentNode)
     var totalOptions = new List<ItemOption>();
 
     var optionGroupNodes = documentNode.QuerySelectorAll(".product-option-group");
+    
     foreach (var optionGroupNode in optionGroupNodes)
     {
-        var options = CollectOptions(optionGroupNode);
+        //collect options
+        var isOptional = false;
+
+        var optionalSpan = optionGroupNode.QuerySelectorAll("legend span.badge.control-optional");
+        if (optionalSpan != null && optionalSpan.Count > 0)
+        {
+            isOptional = true;
+        }
+        
+        var options = HandleOptionsGroup(totalOptions, optionGroupNode, currencySymbol, isOptional);
         totalOptions.AddRange(options);
     }
             
@@ -62,29 +73,33 @@ List<ItemOption> CollectTotalOptions(HtmlNode documentNode)
 }
 
 
-List<ItemOption> CollectOptions(HtmlNode optionGroupNode)
+List<ItemOption> HandleOptionsGroup(List<ItemOption> options, HtmlNode optionGroupNode, string currencySymbol, bool isOptional)
 {
-    var optionNodes = optionGroupNode.QuerySelectorAll(".product-option.form-check"); 
-    
-    var options = new List<ItemOption>();
-    foreach (var optionNode in optionNodes)
+    var optionElements = optionGroupNode.QuerySelectorAll(".product-option.form-check");
+    var optionGroupIdInputs = optionGroupNode.QuerySelectorAll(".input[id=__id],[type=hidden]");
+    if (optionGroupIdInputs is null)
     {
-        var values = optionGroupNode.ChildAttributes("value").ToString();
-        options.Add(new ItemOption
-        {
-            Id = optionNode.GetAttributeValue("value"),
-            Name = optionNode.InnerText.Trim().Split('\n')[0],
-            // Price = ,
-            GroupId = values,
-            // IsOptional = ,
-            // IsMutuallyExclusive = ,
-        });
+        throw new Exception("cannot find option group identifier element");
     }
 
-    var key = optionGroupNode.InnerText.Trim().Split('\n')[0];
-    
-    return options;
+    var groupId = optionGroupIdInputs.FirstOrDefault().GetAttributeValue("value");
+    if (groupId is null)
+    {
+        throw new Exception("option group identifier is empty");
+    }
+
+    var itemOptions = new List<ItemOption>();
+
+    foreach (var element in optionElements)
+    {
+        itemOptions.Add(ConstructItemOption(groupId, isOptional, currencySymbol, element));
+    }
+
+    return itemOptions;
 }
+
+
+
 
 List<string> GetCollectionLinks(string url)
 {
@@ -129,19 +144,154 @@ List<string> GetProductLinks(List<string> collectionUrls)
     return productLinks;
 }
 
-Item ConstructItem(HtmlNode documentNode)
+ItemOption ConstructItemOption(string groupId, bool isOptional, string currencySymbol, HtmlNode optionSelection) //TODO: currencySymbol
 {
-    return new Item
+    var isMutuallyExclusive = true;
+
+    var checkBoxInput = optionSelection.QuerySelectorAll("input[type=checkbox]:not([type=hidden])");
+
+    if (checkBoxInput is not null && checkBoxInput.Count > 0)
     {
-        Name = documentNode.QuerySelector("h1").InnerText,
-        Description = documentNode.QuerySelector("div.product-section.product-intro > p")?.InnerText ?? "N/A",
-        ImgUrl = documentNode.QuerySelector("img").ChildAttributes("src").FirstOrDefault()?.Value ?? "N/A",
-        Price = Convert.ToDouble(documentNode.QuerySelector(".product-price").InnerText.Split(' ')[1]),
-        Options = CollectTotalOptions(documentNode),
-        // Associations  = node.QuerySelector("").InnerText,
-        // Size = node.QuerySelector("").InnerText,
-        // Availability = true //node.SelectSingleNode("").InnerText;
+        isMutuallyExclusive = false;
+    }
+
+    var optionIdInputs = optionSelection.QuerySelectorAll("input[__Id][type=hidden]");
+
+    if (optionIdInputs.Count <= 0)
+    {
+        throw new Exception("cannot find option identifier element");
+    }
+
+    var optionId = optionIdInputs.FirstOrDefault().GetAttributeValue("value") ?? string.Empty;
+
+    if (string.IsNullOrWhiteSpace(optionId))
+    {
+        throw new Exception("option identifier is empty");
+    }
+
+    var optionLabel = optionSelection.QuerySelector("label.form-check-label");
+    var rawOptionPrice = optionLabel.QuerySelector("span.product-option-price").InnerText;
+
+    var optionPrice = new double();
+
+    if (string.IsNullOrWhiteSpace(rawOptionPrice))
+    {
+        optionPrice = 0;
+    }
+    
+    else
+    {
+        
+        var optionPriceParts = rawOptionPrice.Split(" ");
+
+        if (optionPriceParts.Length != 3)
+        {
+            throw new Exception($"invalid option price format: {rawOptionPrice}");
+        }
+
+        currencySymbol = optionPriceParts[1];
+
+        var optionPriceStr = optionPriceParts[2].Replace(",", ".");
+
+        if (!double.TryParse(optionPriceStr, out double result))
+        {
+            throw new Exception("couldn't parse option price");
+        }
+
+        optionPrice = result;
+    }
+
+    var option = new ItemOption
+    {
+        Id = optionId,
+        GroupId = groupId,
+        Name = optionLabel.ToString().Trim(),
+        IsOptional = isOptional,
+        IsMutuallyExclusive = isMutuallyExclusive,
+        Price = new Currency
+        {
+            Value = optionPrice,
+            CurrencySymbol = currencySymbol,
+        }
     };
+    return option;
+}
+
+ItemAssociation ConstructItemAssociation(string name, string groupId, bool isOptional, string currencySymbol,
+    HtmlNode associationSelection)
+{
+    var isAlwaysChecked = true;
+
+    if (associationSelection.HasClass("checkbox") || !associationSelection.HasClass("checked"))
+    {
+        isAlwaysChecked = false;
+    }
+
+    var associationIdInputs = associationSelection.QuerySelectorAll("input[__id][type=hidden");
+
+    if (associationIdInputs is null)
+    {
+        throw new Exception("cannot find option identifier element");
+    }
+
+    var associationId = associationIdInputs.FirstOrDefault().GetAttributeValue("value") ?? string.Empty;
+
+    if (associationId is null)
+    {
+        throw new Exception("association identifier is empty");
+    }
+
+    var description = associationSelection.QuerySelector(".product-association-title").InnerText.Trim();
+
+    if (name == description)
+    {
+        description = string.Empty;
+    }
+
+    var rawPrice = associationSelection.QuerySelector(".product-association-price").InnerText;
+
+    var associationPrice = new double();
+
+    if (rawPrice.Length <= 0)
+    {
+        associationPrice = 0;
+    }
+    else
+    {
+        var associationPriceParts = rawPrice.Split(' ');
+        if (associationPriceParts.Length != 2)
+        {
+            throw new Exception($"invalid association price format {rawPrice}");
+        }
+
+        currencySymbol = associationPriceParts[0];
+
+        var optionPriceStr = associationPriceParts[1].Replace(",", ".");
+
+        if (!double.TryParse(optionPriceStr, out double result))
+        {
+            throw new Exception("couldn't parse association price");
+        }
+
+        associationPrice = result;
+    }
+
+    var association = new ItemAssociation
+    {
+        Id = associationId,
+        GroupId = groupId,
+        Name = name,
+        Description = description,
+        IsOptional = isOptional,
+        IsAlwaysChecked = isAlwaysChecked,
+        Price = new Currency
+        {
+            Value = associationPrice,
+            CurrencySymbol = currencySymbol
+        }
+    };
+    
+    return association;
 }
 
 HtmlNode GetHtml(string url)

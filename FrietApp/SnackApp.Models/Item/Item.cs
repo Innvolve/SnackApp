@@ -1,20 +1,20 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using SnackApp.Models.ItemProperties;
 
 namespace SnackApp.Models;
 
 public class Item
 {
-    [JsonProperty("slug")]
+    [JsonPropertyName("slug")]
     public string Slug { get; init; }
     
-    [JsonProperty("item-url")]
+    [JsonPropertyName("item-url")]
     public string ItemUrl { get; init; }
     
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name { get; init; }
     
-    [JsonProperty("price")]
+    [JsonPropertyName("price")]
     public double Price { get; init; }
     
     //Todo added jsonproperties
@@ -23,16 +23,16 @@ public class Item
     
     public string ImgUrl { get; init; }
     
-    [JsonProperty("options")]
+    [JsonPropertyName("options")]
     public List<ItemOption> Options { get; init; }
     
-    [JsonProperty("associations")]
+    [JsonPropertyName("associations")]
     public List<ItemAssociation>? Associations { get; init; }
     
-    [JsonProperty("dimensions")]
+    [JsonPropertyName("dimensions")]
     public ItemDimension? Dimension { get; init; }
     
-    [JsonProperty("availability")]
+    [JsonPropertyName("availability")]
     public bool Availability { get; set; }
     
    

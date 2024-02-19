@@ -1,18 +1,18 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SnackApp.Models.ItemProperties;
 
 public record ItemOption
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id;
     
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name;
     
     public Currency Price;
     
-    [JsonProperty("option-group-id")]
+    [JsonPropertyName("option-group-id")]
     public string GroupId;
     
     public bool IsOptional;

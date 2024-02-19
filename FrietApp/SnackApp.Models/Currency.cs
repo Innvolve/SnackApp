@@ -1,12 +1,12 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SnackApp.Models;
 
 public struct Currency
 {
-    [JsonProperty("currency-symbol")]
+    [JsonPropertyName("currency-symbol")]
     public string CurrencySymbol;
     
-    [JsonProperty("value")]
+    [JsonPropertyName("value")]
     public double Value;
 }

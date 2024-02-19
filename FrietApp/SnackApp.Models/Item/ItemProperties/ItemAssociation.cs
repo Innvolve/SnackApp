@@ -1,23 +1,24 @@
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SnackApp.Models.ItemProperties;
 
 public record ItemAssociation
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id;
     
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name;
     
     public string Description;
     
     public Currency Price;
     
-    [JsonProperty("association-group-id")]
+    [JsonPropertyName("association-group-id")]
     public string GroupId;
     
-    [JsonProperty("always-checked")]
+    [JsonPropertyName("always-checked")]
     public bool IsAlwaysChecked;
     
     public bool IsOptional;
