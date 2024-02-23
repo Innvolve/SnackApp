@@ -9,4 +9,9 @@ public struct Currency
     
     [JsonPropertyName("value")]
     public double Value;
+
+    public override string ToString()
+    {
+        return CurrencySymbol+Value;
+    }
 }

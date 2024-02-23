@@ -15,11 +15,10 @@ public class Item
     public string Name { get; init; }
     
     [JsonPropertyName("price")]
-    public double Price { get; init; }
+    public Currency Price { get; init; }
     
-    //Todo added jsonproperties
+    [JsonPropertyName("description")]
     public string? Description { get; init; }
-    
     
     public string ImgUrl { get; init; }
     
@@ -30,10 +29,11 @@ public class Item
     public List<ItemAssociation>? Associations { get; init; }
     
     [JsonPropertyName("dimensions")]
-    public ItemDimension? Dimension { get; init; }
+    public List<ItemDimension>? Dimensions { get; init; }
     
     [JsonPropertyName("availability")]
     public bool Availability { get; set; }
     
-   
+   [JsonPropertyName("product-deposit")]
+   public Currency DepositValue { get; init; }
 }
