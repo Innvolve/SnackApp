@@ -20,6 +20,7 @@ public class Item
     [JsonPropertyName("description")]
     public string? Description { get; init; }
     
+    [JsonPropertyName("imgurl")]
     public string ImgUrl { get; init; }
     
     [JsonPropertyName("options")]

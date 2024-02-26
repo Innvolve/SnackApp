@@ -22,7 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SnackApp.Models\SnackApp.Models.csproj" />
+      <ProjectReference Include="..\Scraper.Logic\Scraper.Logic.csproj" />
+      <ProjectReference Include="..\Scraper.Models\Scraper.Models.csproj" />
     </ItemGroup>
 
 </Project>
