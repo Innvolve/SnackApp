@@ -3,7 +3,7 @@ using HtmlAgilityPack.CssSelectors.NetCore;
 using SnackApp.Models;
 using SnackApp.Models.ItemProperties;
 
-namespace SnackApp.Logic.Scraper.Item.ItemProperties;
+namespace SnackApp.Logic.ItemPropertyHandlers;
 
 public class ItemOptionHandler
 {

@@ -5,17 +5,20 @@ namespace SnackApp.Models.ItemProperties;
 public record ItemOption
 {
     [JsonPropertyName("id")]
-    public string Id;
-    
+    public string Id { get; init; }
+
     [JsonPropertyName("name")]
-    public string Name;
-    
-    public Currency Price;
+    public string Name { get; init; }
+
+    [JsonPropertyName("price")] 
+    public Currency Price { get; init; }
     
     [JsonPropertyName("option-group-id")]
-    public string GroupId;
+    public string GroupId { get; init; }
     
-    public bool IsOptional;
+    [JsonPropertyName("is-optional")]
+    public bool IsOptional { get; init; }
     
-    public bool IsMutuallyExclusive;
+    [JsonPropertyName("is-mutually-exclusive")]
+    public bool IsMutuallyExclusive { get; init; }
 }

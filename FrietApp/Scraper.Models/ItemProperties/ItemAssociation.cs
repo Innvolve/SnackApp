@@ -6,20 +6,23 @@ namespace SnackApp.Models.ItemProperties;
 public record ItemAssociation
 {
     [JsonPropertyName("id")]
-    public string Id;
+    public string Id { get; init; }
     
     [JsonPropertyName("name")]
-    public string Name;
+    public string Name { get; init; }
     
-    public string Description;
+    [JsonPropertyName("description")]
+    public string Description { get; init; }
     
-    public Currency Price;
+    [JsonPropertyName("price")]
+    public Currency Price { get; init; }
     
     [JsonPropertyName("association-group-id")]
-    public string GroupId;
+    public string GroupId { get; init; }
     
     [JsonPropertyName("always-checked")]
-    public bool IsAlwaysChecked;
+    public bool IsAlwaysChecked { get; init; }
     
-    public bool IsOptional;
+    [JsonPropertyName("is-optional")]
+    public bool IsOptional { get; init; }
 }

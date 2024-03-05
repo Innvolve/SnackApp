@@ -3,10 +3,11 @@ using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
-using SnackApp.Logic.Scraper.Item.ItemProperties;
+using SnackApp.Logic.ItemPropertyHandlers;
+using SnackApp.Logic.Scraper;
 using SnackApp.Models;
 
-namespace SnackApp.Logic.Scraper;
+namespace SnackApp.Logic;
 
 public class ProductScrapeProcess : IScrapeProcess
 {
@@ -14,14 +15,14 @@ public class ProductScrapeProcess : IScrapeProcess
     private readonly ItemAssociationHandler _associationHandler = new();
     private readonly ItemDimensionHandler _itemDimensionHandler = new();
     private readonly ItemOptionHandler _itemOptionHandler = new();
-    public List<Models.Item> StartScrape(string baseUrl)
+    public List<Item> StartScrape(string baseUrl)
     {
         //Get product links
         var collectionLinks = GetCollectionLinks(baseUrl);
         var productLinks = GetProductLinks(baseUrl, collectionLinks);
 
-// Collect Items
-        var items = new List<Models.Item>();
+        // Collect Items
+        var items = new List<Item>();
         foreach (var link in productLinks)
         {
             var productLink = baseUrl + link;
@@ -33,11 +34,11 @@ public class ProductScrapeProcess : IScrapeProcess
         return items;
     }
 
-    private Models.Item CollectItem(HtmlNode node)
+    private Item CollectItem(HtmlNode node)
     {
     
         var imgUrl = node.QuerySelector("img").GetAttributeValue("src");
-        var item = new Models.Item
+        var item = new Item
         {
             Slug = node.QuerySelector("input[id=Editor_Slug]").GetAttributeValue("value"),
             Name = node.QuerySelector("h1").InnerText,

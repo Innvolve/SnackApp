@@ -3,7 +3,7 @@ using SnackApp.Models.ItemProperties;
 
 namespace SnackApp.Models;
 
-public class Item
+public record Item
 {
     [JsonPropertyName("slug")]
     public string Slug { get; init; }

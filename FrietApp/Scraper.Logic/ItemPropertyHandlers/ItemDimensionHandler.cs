@@ -3,7 +3,7 @@ using HtmlAgilityPack.CssSelectors.NetCore;
 using SnackApp.Models;
 using SnackApp.Models.ItemProperties;
 
-namespace SnackApp.Logic.Scraper.Item.ItemProperties;
+namespace SnackApp.Logic.ItemPropertyHandlers;
 
 public class ItemDimensionHandler
 {
@@ -119,9 +119,11 @@ public class ItemDimensionHandler
             dimensionPrice = result;
         }
 
+        var name = dimensionSelection.QuerySelector("div[class=product-dimension-title]").InnerText.Trim();
+
         var dimension = new ItemDimension
         {
-            Name = dimensionSelection.QuerySelector("div[class=product-dimension-title]").InnerText.Trim(),
+            Name = name,
             IsMutuallyExclusive = isMutuallyExclusive,
             IsAlwaysChecked = isAlwaysChecked,
             GroupId = groupId,

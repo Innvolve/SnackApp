@@ -2,7 +2,9 @@
 
 public class Order
 {
-    private string owner;
-    private List<Item> items;
-    private int cost;
+    private string Owner;
+    
+    private List<Item> Items;
+    
+    private Currency OrderPrice;
 }
