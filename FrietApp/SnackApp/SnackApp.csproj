@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>0043ca8c-35dd-48c1-a7f4-ba34d3865277</UserSecretsId>
+    <RootNamespace>SnackApp</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,10 @@
     <PackageReference Include="Microsoft.Graph" Version="5.37.0" />
     <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.2.0" />
     <PackageReference Include="Microsoft.TeamsFx" Version="2.3.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SnackApp.View\SnackApp.View.csproj" />
   </ItemGroup>
 
 </Project>

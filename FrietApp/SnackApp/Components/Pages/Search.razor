@@ -1,0 +1,60 @@
+﻿@using SnackApp.View.Models
+
+<h3>Search</h3>
+
+<div>
+    <input @bind="searchQuery" @oninput="() => SearchItems(searchQuery)" />
+    <ul>
+        @foreach (var item in searchResults)
+        {
+            <li>
+                @item.Name
+                <button @onclick="() => AddSelectedItem(item)">Add</button>
+            </li>
+        }
+    </ul>
+</div>
+<div>
+    <h3>Selected Items</h3>
+    <ul>
+        @foreach (var item in selectedItems)
+        {
+            <li>@item.Name <button @onclick="() => RemoveSelectedItem(item)">Remove</button></li>
+        }
+    </ul>
+</div>
+
+@code {
+
+    List<ItemVM> searchResults = new ();
+    List<ItemVM> selectedItems = new ();
+
+    // Method to search for items
+    private async Task SearchItems(string query)
+    {
+        // Make API call to retrieve items based on query
+        var JsonData = File.ReadAllLines(Path)
+        // Populate searchResults with the retrieved items
+    }
+
+    // Method to add selected item
+    private void AddSelectedItem(ItemVM item)
+    {
+        if (!selectedItems.Contains(item))
+        {
+            selectedItems.Add(item);
+            // Save selectedItems to persistent storage
+        }
+    }
+
+    // Method to remove selected item
+    private void RemoveSelectedItem(ItemVM item)
+    {
+        if (selectedItems.Contains(item))
+        {
+            selectedItems.Remove(item);
+            // Save selectedItems to persistent storage
+        }
+
+    }
+}
