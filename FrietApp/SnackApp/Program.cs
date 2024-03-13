@@ -1,5 +1,5 @@
+using SnackApp.Components;
 using TeamsApp;
-using TeamsApp.Components;
 using TeamsApp.Interop.TeamsSDK;
 
 var builder = WebApplication.CreateBuilder(args);

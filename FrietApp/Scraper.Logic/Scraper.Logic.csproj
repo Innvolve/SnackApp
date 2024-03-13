@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Scraper.Models\Scraper.Models.csproj" />
+      <ProjectReference Include="..\Shared.Models\Shared.Models.csproj" />
     </ItemGroup>
 
 </Project>

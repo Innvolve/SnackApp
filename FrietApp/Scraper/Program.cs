@@ -23,6 +23,8 @@ await using (var outputFile = new StreamWriter(Path.Combine(outputPath, "menu.js
     await outputFile.WriteAsync(jsonData);
 }
 
+
+
 //Test
 foreach (var item in items)
 {
