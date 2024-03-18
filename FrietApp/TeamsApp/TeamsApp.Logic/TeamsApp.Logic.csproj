@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\SnackApp.Entities\SnackApp.Entities.csproj" />
+    </ItemGroup>
+
 </Project>

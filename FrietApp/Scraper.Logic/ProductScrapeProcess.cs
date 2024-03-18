@@ -3,8 +3,9 @@ using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
+using Shared.Models;
+using SnackApp.Logic.Abstractions;
 using SnackApp.Logic.ItemPropertyHandlers;
-using SnackApp.Logic.Scraper;
 using SnackApp.Models;
 
 namespace SnackApp.Logic;

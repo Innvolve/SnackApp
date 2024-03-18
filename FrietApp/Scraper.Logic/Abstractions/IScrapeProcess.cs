@@ -1,4 +1,4 @@
-namespace SnackApp.Logic.Scraper;
+namespace SnackApp.Logic.Abstractions;
 
 public interface IScrapeProcess
 {

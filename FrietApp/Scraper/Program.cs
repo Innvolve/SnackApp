@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
 using SnackApp.Logic;
-using SnackApp.Logic.Scraper;
+using SnackApp.Logic.Abstractions;
 
 const string baseDomain = "https://cafetariabienvenue.12waiter.eu";
-const string outputPath = @"C:\repositories\SnackApp\FrietApp\Output";
+const string outputPath = @"C:\repositories\TeamsApp\FrietApp\Output";
+
 IScrapeProcess process = new ProductScrapeProcess();
 var items = process.StartScrape(baseDomain);
 
@@ -24,21 +25,20 @@ await using (var outputFile = new StreamWriter(Path.Combine(outputPath, "menu.js
 }
 
 
+// //Test
+// foreach (var item in items)
+// {
+//     Console.WriteLine(item.Name);
+//     Console.WriteLine(item.Price.CurrencyString);
+//     if (item.Dimensions is not null)
+//     {
+//         foreach (var dimension in item.Dimensions)
+//         {
+//             Console.WriteLine($"Dimension: {dimension.Name}");
+//             Console.WriteLine($"Dimension Price: {dimension.Price.CurrencyString}");
+//         }
+//     }
+// }
+// return items.Count;
 
-//Test
-foreach (var item in items)
-{
-    Console.WriteLine(item.Name);
-    Console.WriteLine(item.Price.CurrencyString);
-    if (item.Dimensions is not null)
-    {
-        foreach (var dimension in item.Dimensions)
-        {
-            Console.WriteLine($"Dimension: {dimension.Name}");
-            Console.WriteLine($"Dimension Price: {dimension.Price.CurrencyString}");
-        }
-    }
-}
-
-return items.Count;
 

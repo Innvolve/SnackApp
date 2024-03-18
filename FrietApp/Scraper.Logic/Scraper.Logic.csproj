@@ -14,8 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Scraper.Models\Scraper.Models.csproj" />
-      <ProjectReference Include="..\Shared.Models\Shared.Models.csproj" />
+      <ProjectReference Include="..\SnackApp.Entities\SnackApp.Entities.csproj" />
     </ItemGroup>
 
 </Project>
