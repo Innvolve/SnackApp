@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared.Models\Shared.Models.csproj" />
+    <ProjectReference Include="..\SnackApp.Entities\SnackApp.Entities.csproj" />
     <ProjectReference Include="..\SnackApp.View\SnackApp.View.csproj" />
   </ItemGroup>
 

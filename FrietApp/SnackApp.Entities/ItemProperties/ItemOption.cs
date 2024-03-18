@@ -1,28 +1,25 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
+using Shared.Models;
 
 namespace SnackApp.Models.ItemProperties;
 
-public record ItemAssociation
+public record ItemOption
 {
     [JsonPropertyName("id")]
     public string Id { get; init; }
-    
+
     [JsonPropertyName("name")]
     public string Name { get; init; }
-    
-    [JsonPropertyName("description")]
-    public string Description { get; init; }
-    
-    [JsonPropertyName("price")]
+
+    [JsonPropertyName("price")] 
     public Currency Price { get; init; }
     
-    [JsonPropertyName("association-group-id")]
+    [JsonPropertyName("option-group-id")]
     public string GroupId { get; init; }
-    
-    [JsonPropertyName("always-checked")]
-    public bool IsAlwaysChecked { get; init; }
     
     [JsonPropertyName("is-optional")]
     public bool IsOptional { get; init; }
+    
+    [JsonPropertyName("is-mutually-exclusive")]
+    public bool IsMutuallyExclusive { get; init; }
 }

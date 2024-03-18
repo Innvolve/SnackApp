@@ -13,7 +13,6 @@ public class GroupOrder
         {
             return new Currency
             {
-                //TODO: 
                 CurrencySymbol = Orders.FirstOrDefault()?.OrderPrice.CurrencySymbol ?? string.Empty,
                 Value = Orders.Sum(orders => orders.OrderPrice.Value),
             };

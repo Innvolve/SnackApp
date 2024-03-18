@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace SnackApp.Models;
+namespace Shared.Models;
 
 public record Currency
 {
