@@ -1,6 +1,6 @@
 ﻿namespace TeamsApp.Logic;
 
-public class 
+public class Class1
 {
     
 }
