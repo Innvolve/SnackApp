@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SnackApp.Entities\SnackApp.Entities.csproj" />
-    <ProjectReference Include="..\TeamsApp.View\TeamsApp.View.csproj" />
+    <ProjectReference Include="..\TeamsApp.Models\TeamsApp.Models.csproj" />
   </ItemGroup>
 
 </Project>

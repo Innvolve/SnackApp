@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Shared.Models;
+using Entities;
 using SnackApp.Models.ItemProperties;
 
 namespace SnackApp.Models;

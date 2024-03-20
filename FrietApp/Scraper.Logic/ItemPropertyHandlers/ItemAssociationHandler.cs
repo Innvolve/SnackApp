@@ -1,6 +1,6 @@
+using Entities;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
-using Shared.Models;
 using SnackApp.Models;
 using SnackApp.Models.ItemProperties;
 

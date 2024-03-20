@@ -1,10 +1,10 @@
 ﻿using SnackApp.Models;
 
-namespace Shared.Models;
+namespace Entities;
 
 public class Order
 {
-    public string Owner;
+    public string Owner { get; init; }
     
     public List<Item> Items;
 

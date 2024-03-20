@@ -1,11 +1,10 @@
-using SnackApp.Models;
-
-namespace Shared.Models;
+namespace Entities;
 
 public class GroupOrder
 {
-    public DateTime Date { get; } = DateTime.UtcNow;
-    public List<Order> Orders { get; set; } = new();
+    public string Owner { get; init; }
+    public DateTime Date { get; init; } = DateTime.UtcNow;
+    public List<Order> Orders { get; init; } = new();
 
     public Currency PriceTotal
     {
@@ -17,9 +16,5 @@ public class GroupOrder
                 Value = Orders.Sum(orders => orders.OrderPrice.Value),
             };
         }
-    }
-    public void AddOrderToGroupOrder(Order order)
-    {
-        Orders.Add(order);
     }
 }

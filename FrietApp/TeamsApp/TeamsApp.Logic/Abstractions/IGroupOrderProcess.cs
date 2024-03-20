@@ -1,5 +1,4 @@
 using Entities;
-using Shared.Models;
 
 namespace TeamsApp.Logic.Abstractions;
 

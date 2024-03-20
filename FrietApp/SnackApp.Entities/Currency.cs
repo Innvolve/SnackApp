@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Shared.Models;
+namespace Entities;
 
 public record Currency
 {

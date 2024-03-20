@@ -1,6 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Shared.Models;
+using Entities;
 
 namespace SnackApp.Models.ItemProperties;
 
