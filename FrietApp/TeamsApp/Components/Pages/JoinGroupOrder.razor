@@ -1,13 +1,14 @@
 @using Microsoft.Graph.Models
 @using SnackApp.Models
+@using Entities
 <h3>JoinGroupOrder</h3>
 <div>
-    <a class="btn btn-primary" @onclick="() => JoinGroupOrder(order)">Toevoegen</a>
+    <a class="btn btn-primary" @onclick="() => JoinGroupOrder(grouporder, order)">Toevoegen</a>
 </div>
 @code {
 
-    private void JoinGroupOrder(OrderVM order)
+    private void JoinGroupOrder(GroupOrderVM groupOrder, OrderVM order)
     {
-        
+        groupOrder.Orders.Add(order);
     }
 }
