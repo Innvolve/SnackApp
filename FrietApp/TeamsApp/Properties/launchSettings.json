@@ -1,0 +1,47 @@
+{
+	"profiles": {
+		"Microsoft Teams (browser)": {
+			"commandName": "Project",
+			"launchBrowser": true,
+			"launchUrl": "https://teams.microsoft.com/l/app/394c2483-234b-44e4-9d63-ee1f9661e9f5?installAppPackage=true&webjoin=true&appTenantId=3faed15d-958e-42a8-87c2-3332187bd553&login_hint=Michael.Aanraad@innvolve.nl",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"dotnetRunMessages": true,
+			"applicationUrl": "https://localhost:44302;http://localhost:2544",
+			"hotReloadProfile": "aspnetcore"
+		},
+		"Microsoft 365 app (browser)": {
+			"commandName": "Project",
+			"launchBrowser": true,
+			"launchUrl": "https://www.office.com/m365apps/b7c2e2bc-1d09-41b2-9125-5ed452352e8f?auth=2&login_hint=Michael.Aanraad@innvolve.nl",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"dotnetRunMessages": true,
+			"applicationUrl": "https://localhost:44302;http://localhost:2544",
+			"hotReloadProfile": "aspnetcore"
+		},
+		"Outlook (browser)": {
+			"commandName": "Project",
+			"launchBrowser": true,
+			"launchUrl": "https://outlook.office.com/host/b7c2e2bc-1d09-41b2-9125-5ed452352e8f?login_hint=Michael.Aanraad@innvolve.nl",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
+			"dotnetRunMessages": true,
+			"applicationUrl": "https://localhost:44302;http://localhost:2544",
+			"hotReloadProfile": "aspnetcore"
+		},
+		"WSL": {
+			"commandName": "WSL2",
+			"launchBrowser": true,
+			"launchUrl": "https://teams.microsoft.com/l/app/394c2483-234b-44e4-9d63-ee1f9661e9f5?installAppPackage=true&webjoin=true&appTenantId=3faed15d-958e-42a8-87c2-3332187bd553&login_hint=Michael.Aanraad@innvolve.nl",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"ASPNETCORE_URLS": "https://localhost:44302;http://localhost:2544"
+			},
+			"distributionName": ""
+		}
+	}
+}

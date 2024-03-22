@@ -1,0 +1,82 @@
+﻿@using SnackApp.View.Models
+@using System.Text.Json
+@using System.Linq
+
+
+<h3>Search</h3>
+
+<input @bind="searchQuery" @oninput="() => SearchItems(searchQuery)" />
+<h3>Zoekresultaten</h3>
+<div class="container text-center">
+    <div class="row">
+        @foreach (var item in searchResults)
+        {
+            <div class="col-4">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <script src="@item.ImgUrl" class="card-img-top" alt="C:\repositories\TeamsApp\FrietApp\TeamsApp\appPackage\color.png"></script>
+                    <p class="card-text">@item.Description</p>
+                    <a class="btn btn-primary" @onclick="() => AddSelectedItem(item)">Toevoegen</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <h3>Winkelwagentje</h3>
+    <div class="container text-center">
+        <div class="row">
+            @foreach (var item in selectedItems)
+            {
+                <div class="col-4">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <script src="@item.ImgUrl" class="card-img-top" alt="C:\repositories\TeamsApp\FrietApp\TeamsApp\appPackage\color.png"></script>
+                        <p class="card-text">@item.Description</p>
+                        <a class="btn btn-primary" @onclick="() => RemoveSelectedItem(item)">Verwijderen</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    string searchQuery;
+    
+    List<ItemVM> searchResults;
+    List<ItemVM> selectedItems;
+
+    private List<ItemVM> SearchItems(string userQuery, List<ItemVM> menu)
+    {
+        return menu.Where(item => 
+                item.Name.Contains(userQuery) ||
+                item.Description.Contains(userQuery))
+            .ToList();
+    }
+
+    private void AddSelectedItem(ItemVM item)
+    {
+        selectedItems.Add(item);
+    }
+
+    private void RemoveSelectedItem(ItemVM item)
+    {
+        if (selectedItems.Contains(item))
+        {
+            selectedItems.Remove(item);
+        }
+    }
+
+    private void SaveOrder(List<ItemVM> items)
+    {
+        if (!selectedItems.Any())
+        {
+            return;
+            //TODO: No items selected.
+        }
+        
+        //TODO: Add items to MainOrderList
+    }
+}
