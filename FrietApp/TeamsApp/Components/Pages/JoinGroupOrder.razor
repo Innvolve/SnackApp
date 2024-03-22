@@ -1,14 +1,27 @@
 @using Microsoft.Graph.Models
 @using SnackApp.Models
 @using Entities
-<h3>JoinGroupOrder</h3>
+
+<h3>Deelnemen aan bestaande groepsbestelling</h3>
+
 <div>
-    <a class="btn btn-primary" @onclick="() => JoinGroupOrder(grouporder, order)">Toevoegen</a>
+    <a class="btn btn-primary" @onclick="AddOrderToGroupOrder">Opslaan en verzenden</a>
 </div>
+
+
+
 @code {
 
-    private void JoinGroupOrder(GroupOrderVM groupOrder, OrderVM order)
+    OrderVM userOrder;
+    
+    [Parameter]
+    public GroupOrderVM GroupOrder { get; set; }
+    
+    [Parameter]
+    public Action<OrderVM> AddOrderToGroupOrderCallback { get; set; }
+
+    private void AddOrderToGroupOrder()
     {
-        groupOrder.Orders.Add(order);
+        AddOrderToGroupOrderCallback?.Invoke(userOrder);
     }
 }

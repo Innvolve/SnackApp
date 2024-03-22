@@ -3,7 +3,7 @@
 @using System.Linq
 
 
-<h3>Search</h3>
+<h3>Artikelen zoeken</h3>
 
 <input @bind="searchQuery" @oninput="() => SearchItems(searchQuery)" />
 <h3>Zoekresultaten</h3>
@@ -44,13 +44,13 @@
 @code {
 
     string searchQuery;
-    
+    List<ItemVM> Menu;
     List<ItemVM> searchResults;
     List<ItemVM> selectedItems;
 
-    private List<ItemVM> SearchItems(string userQuery, List<ItemVM> menu)
+    private List<ItemVM> SearchItems(string userQuery)
     {
-        return menu.Where(item => 
+        return Menu.Where(item => 
                 item.Name.Contains(userQuery) ||
                 item.Description.Contains(userQuery))
             .ToList();
