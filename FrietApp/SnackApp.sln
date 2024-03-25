@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamsApp.Models", "TeamsApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamsApp", "TeamsApp", "{D1C6EDCD-FDEB-4648-8D2D-5C8C3BBE69D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackApp.Entities", "SnackApp.Entities\SnackApp.Entities.csproj", "{A508036F-F9C7-4053-870E-5E74D9E4FBBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnackApp.Entities", "SnackApp.Entities\SnackApp.Entities.csproj", "{A508036F-F9C7-4053-870E-5E74D9E4FBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamsApp.Logic", "TeamsApp.Logic\TeamsApp.Logic.csproj", "{D0E01F75-0ED7-4CA6-B361-2710A1EC7B26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamsApp.Logic", "TeamsApp.Logic\TeamsApp.Logic.csproj", "{D0E01F75-0ED7-4CA6-B361-2710A1EC7B26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
