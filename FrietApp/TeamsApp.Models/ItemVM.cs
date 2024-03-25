@@ -19,15 +19,5 @@ public class ItemVM
         Availability = item.Availability;
         Price = item.Price;
     }
-    public static explicit operator Item(ItemVM itemVm)
-    {
-        return new Item
-        {
-            Name = itemVm.Name,
-            Description = itemVm.Description,
-            ImgUrl = itemVm.ImgUrl,
-            Availability = itemVm.Availability,
-            Price = itemVm.Price
-        };
-    }
+    
 }

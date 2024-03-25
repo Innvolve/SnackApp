@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamsApp", "TeamsApp", "{D1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnackApp.Entities", "SnackApp.Entities\SnackApp.Entities.csproj", "{A508036F-F9C7-4053-870E-5E74D9E4FBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamsApp.Logic", "TeamsApp\TeamsApp.Logic\TeamsApp.Logic.csproj", "{D0E01F75-0ED7-4CA6-B361-2710A1EC7B26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamsApp.Logic", "TeamsApp.Logic\TeamsApp.Logic.csproj", "{D0E01F75-0ED7-4CA6-B361-2710A1EC7B26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
