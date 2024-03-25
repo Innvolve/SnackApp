@@ -1,5 +1,26 @@
-<h3>CreateGroupOrder</h3>
+@using SnackApp.Models
+
+
+<h3> Groepsbestelling beginnen</h3>
+<div>
+    <a class="btn btn-primary" @onclick="CreateNewGroupOrder">Begin</a>
+</div>
+
+
+
 
 @code {
-    
+
+    OrderVM userOrder;
+
+    [Parameter]
+    public GroupOrderVM GroupOrder { get; set; }
+
+    [Parameter]
+    public Action CreateNewGroupOrderCallback { get; set; }
+
+    private void CreateNewGroupOrder()
+    {
+        CreateNewGroupOrderCallback?.Invoke();
+    }
 }
