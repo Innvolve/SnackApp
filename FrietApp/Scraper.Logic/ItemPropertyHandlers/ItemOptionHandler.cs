@@ -49,7 +49,7 @@ public class ItemOptionHandler
             throw new Exception("cannot find option group identifier element");
         }
 
-        var groupId = optionGroupIdInputs.FirstOrDefault().GetAttributeValue("value","N/A");
+        var groupId = optionGroupIdInputs.FirstOrDefault()!.GetAttributeValue("value","N/A");
         if (groupId.Length <= 0)
         {
             throw new Exception("option group identifier is empty");
@@ -84,7 +84,7 @@ ItemOption ConstructItemOption(HtmlNode optionSelection, string groupId, bool is
         throw new Exception("cannot find option identifier element");
     }
 
-    var optionId = optionIdInputs.FirstOrDefault().GetAttributeValue("value","N/A") ?? string.Empty;
+    var optionId = optionIdInputs.FirstOrDefault()!.GetAttributeValue("value","N/A") ?? string.Empty;
 
     if (string.IsNullOrWhiteSpace(optionId))
     {

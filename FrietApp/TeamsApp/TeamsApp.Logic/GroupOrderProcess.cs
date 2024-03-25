@@ -12,7 +12,7 @@ public class GroupOrderProcess : IGroupOrderProcess
         
         // open threads
         // listen for orders
-        //var userOrder = ThreadPool.QueueUserWorkItem(StartUserOrder);
+        //TODO var userOrder = ThreadPool.QueueUserWorkItem(StartUserOrder);
         
         // add each order to group order
         // add possibility to remove orders

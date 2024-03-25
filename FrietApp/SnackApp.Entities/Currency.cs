@@ -5,7 +5,7 @@ namespace Entities;
 public record Currency
 {
     [JsonPropertyName("currency-symbol")]
-    public string CurrencySymbol { get; init; }
+    public string? CurrencySymbol { get; init; }
     
     [JsonPropertyName("value")]
     public double Value { get; init; }

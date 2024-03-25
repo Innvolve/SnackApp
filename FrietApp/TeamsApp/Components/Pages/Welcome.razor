@@ -24,7 +24,7 @@
                         {
                             <CreateGroupOrder GroupOrder="@GroupOrder" CreateNewGroupOrderCallback="@CreateNewGroupOrder" />
                         }
-                        @if (GroupOrder is not null)
+                        else
                         {
                             <Search />
                             <JoinGroupOrder GroupOrder="@GroupOrder" AddOrderToGroupOrderCallback="@AddOrderToGroupOrder" />
@@ -32,8 +32,6 @@
                     </Content>
                 </FluentTab>
             </FluentTabs>
-
-
         </div>
     </div>
 </Loading>
@@ -52,8 +50,6 @@
     {
         GroupOrder.Orders.Add(order);
     }
-
-
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

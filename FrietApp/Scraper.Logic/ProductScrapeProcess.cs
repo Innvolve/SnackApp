@@ -1,4 +1,6 @@
+using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using Entities;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
@@ -37,7 +39,7 @@ public class ProductScrapeProcess : IScrapeProcess
 
     private Item CollectItem(HtmlNode node)
     {
-    
+
         var imgUrl = node.QuerySelector("img").GetAttributeValue("src");
         var item = new Item
         {
@@ -53,7 +55,7 @@ public class ProductScrapeProcess : IScrapeProcess
             Availability = GetProductAvailability(node),
             DepositValue = GetItemDepositValue(node),
         };
-        
+
         return item;
     }
 
@@ -61,23 +63,39 @@ public class ProductScrapeProcess : IScrapeProcess
     {
         var availability = false;
         var jsonNode = node.QuerySelector("head").QuerySelector("script");
-   
+
         var jsonString = jsonNode.InnerText;
 
         if (string.IsNullOrEmpty(jsonString))
         {
             return availability;
         }
-        
-        var jsonObject = JsonObject.Parse(jsonString);
-    
-        if (jsonObject["offers"]["availability"] != null && jsonObject["offers"]["availability"].ToString() == "https://schema.org/InStock")
+
+        var jsonObject = JsonNode.Parse(jsonString) ?? throw new Exception("Unable to parse jsonObject");
+
+        var offersJson = jsonObject["offers"]?.ToJsonString();
+
+        if (string.IsNullOrWhiteSpace(offersJson))
         {
-            availability = true;
+            throw new InvalidOperationException("No order JsonInfo found");
         }
+
+        var offerAvailability = JsonSerializer.Deserialize<Offer>(offersJson);
+        availability = offerAvailability.Availability == "https://schema.org/InStock";
 
         return availability;
     }
+
+    public struct Offer
+    {
+        [JsonPropertyName("@type")]
+        public string Type;
+        public string Url;
+        public string Availability;
+        public double Price;
+        public string Pricecurrency;
+    }
+
 
     internal Currency GetItemPrice(HtmlNode node)
     {
@@ -94,7 +112,7 @@ public class ProductScrapeProcess : IScrapeProcess
 
         var itemPriceStr = itemPriceParts[1].Replace(".", ",");
 
-        if (!double.TryParse(itemPriceStr, out var itemPrice)) 
+        if (!double.TryParse(itemPriceStr, out var itemPrice))
         {
             throw new Exception("unable to parse item price");
         }
@@ -111,7 +129,7 @@ public class ProductScrapeProcess : IScrapeProcess
         //Deposit Value?
         var rawDepositValue = node.QuerySelector("div.product-deposit")?.InnerText ?? string.Empty;
 
-       if (string.IsNullOrWhiteSpace(rawDepositValue))
+        if (string.IsNullOrWhiteSpace(rawDepositValue))
         {
             return new Currency
             {
@@ -164,7 +182,7 @@ public class ProductScrapeProcess : IScrapeProcess
                     }
                 }
             }
-            foreach (var link in links) 
+            foreach (var link in links)
             {
                 productLinks.Add(link.Attributes["href"].Value);
             }
@@ -176,7 +194,7 @@ public class ProductScrapeProcess : IScrapeProcess
     {
         var html = GetHtml(url);
         var links = html.CssSelect("a.collection-item[href^='/c/']");
-    
+
         var pageCollectionLinks = new List<string>();
         foreach (var link in links)
         {
